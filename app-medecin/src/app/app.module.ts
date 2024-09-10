@@ -20,6 +20,8 @@ import { AppComponent } from './app.component';
 import { ListePatientsComponent } from './liste-patients/liste-patients.component';
 import { LoginComponent } from './login/login.component';
 import { PatientDetailsComponent } from './patient-details/patient-details.component';
+import {MatCardModule} from '@angular/material/card';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -49,6 +51,8 @@ import { PatientDetailsComponent } from './patient-details/patient-details.compo
     BrowserAnimationsModule, // Nécessaire pour Angular Material
     MatInputModule, // Ajoutez les modules Angular Material ici
     MatButtonModule,
+    MatCardModule,
+    MatProgressSpinnerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

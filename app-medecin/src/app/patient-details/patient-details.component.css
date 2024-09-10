@@ -2,7 +2,7 @@
 .patient-card {
     max-width: 600px;
     margin: auto;
-    background-color: rgb(230, 213, 193);
+    background-color: rgb(115, 229, 255);
   }
   
   .mat-card-content {
@@ -32,5 +32,15 @@
   
   .mat-row {
     border-bottom: 1px solid #ddd;
+  }
+  .example-card {
+    max-width: 300px;
+    margin-left: 33%;
+    margin-bottom: 20px;
+  }
+  
+  .example-header-image {
+    background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+    background-size: cover;
   }
   
