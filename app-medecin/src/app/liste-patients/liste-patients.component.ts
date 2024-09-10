@@ -13,9 +13,11 @@ import { PatientService } from '../Services/patient.service';
 export class ListePatientsComponent implements OnInit {
   displayedColumns: string[] = ['number', 'image','nom', 'age', 'genre', 'contact', 'action'];
   dataSource: MatTableDataSource<Patient>;
+  patients?: Patient[];
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
+  searchText?: string = '';
 
   constructor(private PatientService: PatientService) {}
 
@@ -25,6 +27,12 @@ export class ListePatientsComponent implements OnInit {
         this.dataSource = new MatTableDataSource(data);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
+  
+        // Define custom filter logic for patient name
+        this.dataSource.filterPredicate = (data: Patient, filter: string) => {
+          const name = (data.name[0]?.family || '') + ' ' + (data.name[0]?.given?.join(' ') || '');
+          return name.trim().toLowerCase().includes(filter.trim().toLowerCase());
+        };
       },
       error => {
         console.error('Error fetching patients', error);
@@ -52,4 +60,9 @@ export class ListePatientsComponent implements OnInit {
       return 'https://www.prolival.fr/wp-content/uploads/2018/06/user.png';
     }
   }
+  applyFilter(event: Event): void {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+  
 }

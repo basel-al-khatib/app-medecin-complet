@@ -1,4 +1,12 @@
 <div class="container my-5">
+
+  <!-- Search Input -->
+  <mat-form-field appearance="outline" class="search-field" style="width: 100%;">
+    <mat-label>Rechercher par nom</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Entrez un nom...">
+  </mat-form-field>
+
+
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
 
     <!-- Number Column -->

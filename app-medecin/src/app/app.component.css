@@ -6,10 +6,13 @@
   
   mat-sidenav {
     width: 250px; /* Ajustez la largeur du sidenav selon vos besoins */
+    background-color: rgb(221, 233, 244);
+
   }
   
   mat-sidenav-content {
     padding: 16px; /* Ajoutez du padding si nécessaire */
+
   }
   
   /* Optionnel: ajuster le comportement du contenu principal */
