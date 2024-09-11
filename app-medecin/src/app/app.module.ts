@@ -35,7 +35,7 @@ import { PopUpProgrammeNutriComponent } from './patient-details/pop-up-programme
     PatientDetailsComponent,
     LoginComponent,
     ProfilComponent,
-    PopUpProgrammeNutriComponent
+    PopUpProgrammeNutriComponent,
   ],
   imports: [
     MatDialogModule,

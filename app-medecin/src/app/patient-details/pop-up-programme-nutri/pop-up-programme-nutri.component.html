@@ -21,8 +21,11 @@
       <mat-card-header>
         <mat-card-title>Indice de Masse Corporelle (IMC)</mat-card-title>
       </mat-card-header>
-      <mat-card-content>
+      <mat-card-content style="display: flex; align-items: end;">
         <p>IMC : {{ patientObservation.imc }}</p>
+        <button mat-raised-button color="primary" (click)="envoyerImc()" style="margin-left: 30%;">
+          Envoyer l'IMC
+        </button> 
       </mat-card-content>
     </mat-card>
   
@@ -92,15 +95,11 @@
           <textarea matInput [(ngModel)]="forbiddenFoods"></textarea>
         </mat-form-field>
       
-        <button mat-raised-button color="primary" (click)="envoyerProgramme()">Envoyer le Programme</button>
+        <button mat-raised-button color="primary" (click)="envoyerProgramme()" style="margin-left: 80%;">Envoyer le Programme</button>
       </mat-card-content>
     </mat-card>
   
-    <button mat-fab extended style="background-color: rgb(19, 135, 250);" (click)="envoyerImc()">
-          
-      envoyer
     
-    </button>
   </div>
   
   <!-- Styles for the page -->

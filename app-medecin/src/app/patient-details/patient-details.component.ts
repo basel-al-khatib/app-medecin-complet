@@ -77,7 +77,7 @@ export class PatientDetailsComponent implements OnInit {
 
         patientObservation.idPatient = this.productID;
         this.copiePatientObservation = { ...patientObservation };
-        
+        this.patientObservations = updatedObservations
       });
     
       

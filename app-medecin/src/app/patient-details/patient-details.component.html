@@ -46,7 +46,7 @@
     </div>
   </div>
 </div>
-  <table mat-table [dataSource]="dataSource" class="mat-elevation-z6" matSort>
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z6" matSort *ngIf="patientObservations.length != 0">
 
     <!-- Number Column -->
     <ng-container matColumnDef="number">
