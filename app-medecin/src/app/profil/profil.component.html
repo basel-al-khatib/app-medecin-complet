@@ -4,6 +4,7 @@
       <mat-card-header>
         <mat-card-title><h1><strong> {{ medecin.name[0]?.family }} {{ medecin.name[0]?.given.join(' ') }}</strong> </h1></mat-card-title>
         <mat-card-subtitle>{{ medecin.gender }} - {{ medecin.birthDate | date }}</mat-card-subtitle>
+        <img mat-card-avatar [src]="getImageUrl(medecin.gender)" alt="Image" width="50" height="50" class="example-header-image"/>   
       </mat-card-header>
       <mat-card-content>
         <p><strong>Identifier:</strong> {{ medecin.identifier[0]?.value }}</p>

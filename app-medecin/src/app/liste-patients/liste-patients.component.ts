@@ -4,7 +4,6 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Patient } from '../models/Patient';
 import { PatientService } from '../Services/patient.service';
-
 @Component({
   selector: 'app-liste-patients',
   templateUrl: './liste-patients.component.html',
@@ -19,9 +18,11 @@ export class ListePatientsComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   searchText?: string = '';
 
-  constructor(private PatientService: PatientService) {}
+  constructor(private PatientService: PatientService,
+  ) {}
 
   ngOnInit(): void {
+   
     this.PatientService.getPatients().subscribe(
       data => {
         this.dataSource = new MatTableDataSource(data);

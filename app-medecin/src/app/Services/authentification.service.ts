@@ -23,7 +23,6 @@ export class AuthentificationService {
       
     return this.http.get<any>(this.apiUrl, { params }).pipe(
       map(response => {  
-        console.log(response.entry);
               
         // Assumons que la réponse est un tableau d'objets médecin
         if (response) {
@@ -35,8 +34,6 @@ export class AuthentificationService {
             this.router.navigate(['/patients']);
             return true;
           }
-
-          console.log("test");
           
         }
         // Échec de la connexion

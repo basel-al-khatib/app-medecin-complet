@@ -9,8 +9,8 @@
   </ng-container>
 </mat-toolbar>
 <mat-sidenav-container class="sidenav-container">
-  <mat-sidenav #sidenav mode="side" opened="true">
-    <mat-nav-list>
+  <mat-sidenav #sidenav mode="side" opened="true" *ngIf="(isLoggedIn$ | async)">
+    <mat-nav-list >
       <mat-list-item [routerLink]="['/profil',this.userId]" style="color: rgb(10, 100, 179);">Profil</mat-list-item>
       <mat-list-item [routerLink]="['/patients']" style="color: rgb(10, 100, 179);">Liste Des Patients</mat-list-item>
       <!-- Add more navigation items here -->

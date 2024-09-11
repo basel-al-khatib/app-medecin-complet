@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthentificationService } from './Services/authentification.service';
-import {ButtonModule} from 'primeng/button';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -19,13 +18,12 @@ export class AppComponent {
   ngOnInit(): void {
     this.isLoggedIn$ = this.authService.isLoggedIn();
     this.currentUserId$ = this.authService.getCurrentUserId();
-    console.log(this.currentUserId$);
 
     this.currentUserId$.subscribe(userId => {
       this.userId= userId;
-      console.log('ID de l\'utilisateur actuel:', userId); // Debug log
     });
     
+
   }
   
   logout() {

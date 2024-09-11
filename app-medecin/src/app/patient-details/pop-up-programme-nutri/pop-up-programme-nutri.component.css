@@ -1,0 +1,69 @@
+mat-form-field {
+    width: 100%; /* Assurez-vous que le mat-form-field occupe toute la largeur disponible */
+  }
+  
+  textarea {
+    width: 100%; /* Assurez-vous que le textarea occupe toute la largeur du mat-form-field */
+  }
+
+  body {
+    display: grid;
+    place-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #222;
+  }
+  .area-chart {
+    /* Reset */
+    margin: 0;
+    padding: 0;
+    border: 0;
+  
+    /* Dimensions */
+    width: 100%;
+    max-width: var(--chart-width, 600px);
+    height: var(--chart-height, 300px);
+  }
+  .area-chart tbody {
+    width: 100%;
+    height: var(--chart-height, 300px);
+  
+    /* Layout */
+    display: flex;
+    justify-content: stretch;
+    align-items: stretch;
+    flex-direction: row;
+  }
+  .area-chart tr {
+    position: relative;
+  
+    /* Even size items */
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: 0;  
+  }
+  .area-chart td {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  
+    /* Color */
+    background: var(--color, rgba(240, 50, 50, 0.75));
+    clip-path: polygon(
+      0% calc(100% * (1 - var(--start))),
+      100% calc(100% * (1 - var(--end))),
+      100% 100%,
+      0% 100%
+    );
+  }
+  .area-chart td:nth-of-type(1) {
+    --color: rgba(240, 50, 50, 0.75);
+  }
+  .area-chart td:nth-of-type(2) {
+    --color: rgba(255, 180, 50, 0.75);
+  }
+  .area-chart td:nth-of-type(3) {
+    --color: rgba(255, 220, 90, 0.75);
+  }
