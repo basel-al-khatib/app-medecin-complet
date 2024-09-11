@@ -24,6 +24,8 @@ import {MatCardModule} from '@angular/material/card';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 import { ProfilComponent } from './profil/profil.component';
+import {ButtonModule} from 'primeng/button';
+import {CalendarModule} from 'primeng/calendar';
 @NgModule({
   declarations: [
     AppComponent,
@@ -54,7 +56,9 @@ import { ProfilComponent } from './profil/profil.component';
     MatInputModule, // Ajoutez les modules Angular Material ici
     MatButtonModule,
     MatCardModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    ButtonModule,
+    CalendarModule
   ],
   providers: [],
   bootstrap: [AppComponent]

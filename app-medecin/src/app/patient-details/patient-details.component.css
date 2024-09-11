@@ -35,12 +35,56 @@
   }
   .example-card {
     max-width: 300px;
-    margin-left: 33%;
     margin-bottom: 20px;
   }
   
   .example-header-image {
-    background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
     background-size: cover;
+  }
+  .graph-container {
+    position: relative;
+    width: 400px;
+    height: 400px;
+    border: 1px solid #333;
+    margin-left: 100px;
+    margin-bottom: 20px;
+  }
+  .axis {
+    position: absolute;
+    background-color: #333;
+  }
+  .x-axis {
+    width: 100%;
+    height: 2px;
+    bottom: 0;  /* Positionne l'axe X en bas du conteneur */
+  }
+  .y-axis {
+    width: 2px;
+    height: 100%;
+    left: 60px;  /* Positionne l'axe Y à gauche du conteneur */
+    top: 0;
+  }
+  
+  .bar {
+    position: absolute;
+    width: 8px;
+    background-color: rgb(0, 0, 0);
+    border-radius: 0px;  /* Pour des coins arrondis sur la barre */
+    bottom: 0;  /* Place les barres au niveau de l'axe X */
+  }
+  
+  .labels {
+    position: absolute;
+    font-size: 12px;
+  }
+  
+  .x-label {
+    bottom: -20px;  /* Positionne les labels X en dessous de l'axe X */
+    transform: translateX(-50%);  /* Centre les labels X par rapport à leur position */
+  }
+  
+  .y-label {
+    left: -50px;  /* Positionne les labels Y à gauche de l'axe Y */
+    transform: translateY(50%);  /* Centre verticalement les labels Y par rapport à leur position */
   }
   

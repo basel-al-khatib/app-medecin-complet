@@ -1,7 +1,12 @@
 
 
 <div class="container d-flex flex-column align-items-center my-5" style="min-height: 100vh;">
-   <!-- Patient Card -->
+ 
+  
+  
+<div style="display: flex; align-items: center;">
+  <!-- Patient Card -->
+
   <mat-card class="example-card" appearance="outlined" *ngIf="patientData; else noData" >
     <mat-card-header>
       <mat-card-title>{{ (patientData.name[0]?.given?.join(' ') || '') }} {{ (patientData.name[0]?.family || '')  }}</mat-card-title>
@@ -13,7 +18,34 @@
         <h5 class="card-title">Date de naissance: {{ patientData.birthDate | date: 'dd/MM/yyyy'  }}</h5>
     </mat-card-content>
   </mat-card>
+  <div class="graph-container">
+    <!-- Axes -->
+    <div class="axis x-axis"></div>
+    <div class="axis y-axis"></div>
   
+    <div class="chart-container">
+      <!-- Boucle pour les dates (axe X) -->
+      <div *ngFor="let date of dates; let i = index" 
+           class="labels x-label" 
+           [ngStyle]="{'left': (60 + i * 100) + 'px'}">
+        {{ date | date: 'dd/MM/yyyy' }}
+      </div>
+  
+      <!-- Boucle pour les valeurs IMC (axe Y) -->
+      <div *ngFor="let imc of valeursImc; let i = index" 
+           class="labels y-label" 
+           [ngStyle]="{'bottom': ( (100*valeursImc.length) - i * 100) + 'px'}">  <!-- Ajustement du "top" pour le bon positionnement -->
+        {{ imc }}
+      </div>
+  
+      <!-- Ajouter les points -->
+      <div *ngFor="let imc of valeursImc; let i = index" 
+           class="bar" 
+           [ngStyle]="{'left': (60 + i * 100) + 'px', 'top': (300 - i * 100) + 'px'}">
+      </div>
+    </div>
+  </div>
+</div>
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z6" matSort>
 
     <!-- Number Column -->
@@ -28,7 +60,7 @@
       <ng-container matColumnDef="dateObservation">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Date d'observation</th>
         <td mat-cell *matCellDef="let obs">
-            {{obs.dateObservation | date: 'dd/MM/yyyy' }}
+            {{obs.dateObservation | date: 'dd/MM/yyyy' }} à {{obs.dateObservation | date: 'HH:mm' }}
         </td>
       </ng-container>
       <!-- Taille Column -->
@@ -53,7 +85,7 @@
     <ng-container matColumnDef="dossierMedical">
       <th mat-header-cell *matHeaderCellDef>Dossier medical</th>
       <td mat-cell *matCellDef="let obs; let i = index">
-        <button mat-fab style="background-color: rgb(19, 135, 250);">
+        <button mat-fab style="background-color: rgb(19, 135, 250);" (click)="envoyerImc(obs)">
           <mat-icon>folder_shared</mat-icon>
         </button>
         

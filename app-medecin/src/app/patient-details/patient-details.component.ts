@@ -4,6 +4,8 @@ import { PatientService } from '../Services/patient.service';
 import { Patient } from '../models/Patient';
 import { MatTableDataSource } from '@angular/material/table';
 import{Observation} from '../models/Observation';
+
+
 @Component({
   selector: 'app-patient-details',
   templateUrl: './patient-details.component.html',
@@ -11,23 +13,26 @@ import{Observation} from '../models/Observation';
 })
 export class PatientDetailsComponent implements OnInit {
 
-
   productID: string | null = null;
   patientData: Patient | undefined;
-  displayedColumns: string[] = ['number', 'dateObservation','taille','pois', 'imc', 'dossierMedical', 'programmeNutritionnel'];
+  displayedColumns: string[] = ['number', 'dateObservation','taille','pois', 'imc', 'programmeNutritionnel'];
   patientDataTable: Patient [] = []
   patientObservations: Observation [] = [];
   dataSource: MatTableDataSource<Observation>;
+  dates: Date [] = [];
+  valeursImc: number [] = [];
   constructor(
     public ar: ActivatedRoute,
     public patientService: PatientService
   ) {}
 
-  ngOnInit(): void {this.productID = this.ar.snapshot.paramMap.get('id');
+  ngOnInit(): void {
+
+    this.productID = this.ar.snapshot.paramMap.get('id');
 
     this.patientService.getObservations().subscribe(obs => {
       // Filtrer les observations pour trouver celles qui correspondent au patient en fonction de l'ID
-      const patientObservations = obs.filter(observation => observation.subject.reference === "Patient/" + this.productID);
+      const patientObservations = obs.filter(observation => observation.subject != null && observation.subject.reference == "Patient/" + this.productID);
       
       // Créez un tableau pour stocker les observations du patient
       const updatedObservations: Observation[] = [];
@@ -41,21 +46,30 @@ export class PatientDetailsComponent implements OnInit {
         if (!patientObservation) {
           patientObservation = new Observation();
           patientObservation.dateObservation = dateObservation;
+          patientObservation.idPatient = this.productID;
           updatedObservations.push(patientObservation);
         }
     
         // Mettez à jour le poids et la taille
-        if (unit === "kg") {
+        if (unit == "kg") {
           patientObservation.poids = observation.valueQuantity?.value;
         }
     
-        if (unit === "cm") {
+        if (unit == "cm") {
           patientObservation.taille = observation.valueQuantity?.value ; // Conversion en mètres
         }
     
         // Recalculer l'IMC si le poids et la taille sont définis
         if (patientObservation.poids && patientObservation.taille) {
           patientObservation.imc = (patientObservation.poids / (patientObservation.taille * patientObservation.taille))*10000;
+          patientObservation.imc = parseFloat(patientObservation.imc.toFixed(3));
+        }
+      });
+    
+      updatedObservations.forEach(obs => {
+        if(obs.poids && obs.taille && obs.imc){
+          this.dates.push(obs.dateObservation);
+          this.valeursImc.push(obs.imc);
         }
       });
     console.log(updatedObservations);
@@ -94,6 +108,13 @@ export class PatientDetailsComponent implements OnInit {
     const ageDifMs = Date.now() - birth.getTime();
     const ageDate = new Date(ageDifMs); // milisecondes depuis 1970
     return Math.abs(ageDate.getUTCFullYear() - 1970);
+  }
+  envoyerImc(observation: Observation){
+    console.log(observation);
+    
+    this.patientService.addObservationImc(observation).subscribe(test => {
+      console.log(test);
+    });
   }
 
 }

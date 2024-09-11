@@ -48,9 +48,12 @@ export class ListePatientsComponent implements OnInit {
   }
 
   removePatient(patient: Patient): void {
-    // Implémente la logique pour supprimer un patient
+    /*// Implémente la logique pour supprimer un patient
     console.log('Remove patient', patient.id);
-  }
+    this.PatientService.deletePatient(patient.id).subscribe(test => {
+     this.dataSource.data = this.dataSource.data.filter(p => p.id !=patient.id )
+    });*/
+    }
 
   
   getImageUrl(gender: string): string {
