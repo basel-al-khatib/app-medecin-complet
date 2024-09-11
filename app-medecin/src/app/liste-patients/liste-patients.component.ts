@@ -57,13 +57,13 @@ export class ListePatientsComponent implements OnInit {
     }
 
   
-  getImageUrl(gender: string): string {
-    if (gender == 'male') {
-      return 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/User_icon-cp.png/724px-User_icon-cp.png';
-    } else {
-      return 'https://www.prolival.fr/wp-content/uploads/2018/06/user.png';
+    getImageUrl(gender: string): string {
+      if (gender == 'male') {
+        return 'https://img.freepik.com/vecteurs-premium/profil-avatar-homme-icone-ronde_24640-14044.jpg';
+      } else {
+        return 'https://www.prolival.fr/wp-content/uploads/2018/06/user.png';
+      }
     }
-  }
   applyFilter(event: Event): void {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();

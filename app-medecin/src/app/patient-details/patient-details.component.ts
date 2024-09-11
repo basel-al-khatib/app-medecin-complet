@@ -24,6 +24,8 @@ export class PatientDetailsComponent implements OnInit {
   dernierImc: number;
   age : number;
   copiePatientObservation: Observation;
+  minImc: number;
+  maxImc: number;
 
   
 
@@ -85,8 +87,12 @@ export class PatientDetailsComponent implements OnInit {
   ? patientObservations[patientObservations.length - 1].imc 
   : undefined;
   dernierImc= this.dernierImc;
-    console.log(updatedObservations);
-    
+  updatedObservations.filter(obs => obs.poids && obs.taille).forEach(obs => {
+    this.dates.push(obs.dateObservation);
+    this.valeursImc.push(obs.imc);
+  })
+  this.minImc = Math.min(...this.valeursImc);
+  this.maxImc = Math.max(...this.valeursImc);
       // Mettre à jour le dataSource avec les nouvelles observations
       this.dataSource = new MatTableDataSource(updatedObservations.filter(obs => obs.poids && obs.taille));
     });
@@ -111,7 +117,7 @@ export class PatientDetailsComponent implements OnInit {
   }
   getImageUrl(gender: string): string {
     if (gender == 'male') {
-      return 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/User_icon-cp.png/724px-User_icon-cp.png';
+      return 'https://img.freepik.com/vecteurs-premium/profil-avatar-homme-icone-ronde_24640-14044.jpg';
     } else {
       return 'https://www.prolival.fr/wp-content/uploads/2018/06/user.png';
     }
