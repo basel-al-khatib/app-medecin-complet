@@ -22,17 +22,21 @@ import { LoginComponent } from './login/login.component';
 import { PatientDetailsComponent } from './patient-details/patient-details.component';
 import {MatCardModule} from '@angular/material/card';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { MatDialogModule } from '@angular/material/dialog';
 
 import { ProfilComponent } from './profil/profil.component';
+import { PopUpProgrammeNutriComponent } from './patient-details/pop-up-programme-nutri/pop-up-programme-nutri.component';
 @NgModule({
   declarations: [
     AppComponent,
     ListePatientsComponent,
     PatientDetailsComponent,
     LoginComponent,
-    ProfilComponent
+    ProfilComponent,
+    PopUpProgrammeNutriComponent
   ],
   imports: [
+    MatDialogModule,
     BrowserModule,
     BrowserAnimationsModule,
     MatSlideToggleModule, 

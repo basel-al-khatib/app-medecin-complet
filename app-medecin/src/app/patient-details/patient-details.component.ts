@@ -4,6 +4,9 @@ import { PatientService } from '../Services/patient.service';
 import { Patient } from '../models/Patient';
 import { MatTableDataSource } from '@angular/material/table';
 import{Observation} from '../models/Observation';
+import { MatDialog } from '@angular/material/dialog';
+import { PopUpProgrammeNutriComponent } from './pop-up-programme-nutri/pop-up-programme-nutri.component';
+
 @Component({
   selector: 'app-patient-details',
   templateUrl: './patient-details.component.html',
@@ -17,17 +20,24 @@ export class PatientDetailsComponent implements OnInit {
   displayedColumns: string[] = ['number', 'dateObservation','taille','pois', 'imc', 'dossierMedical', 'programmeNutritionnel'];
   patientDataTable: Patient [] = []
   patientObservations: Observation [] = [];
+  dernierImc: number;
+  age : number;
+  copiePatientObservation: Observation;
+
+  
+
   dataSource: MatTableDataSource<Observation>;
   constructor(
     public ar: ActivatedRoute,
-    public patientService: PatientService
+    public patientService: PatientService,
+    public dialog: MatDialog
   ) {}
 
   ngOnInit(): void {this.productID = this.ar.snapshot.paramMap.get('id');
 
     this.patientService.getObservations().subscribe(obs => {
       // Filtrer les observations pour trouver celles qui correspondent au patient en fonction de l'ID
-      const patientObservations = obs.filter(observation => observation.subject.reference === "Patient/" + this.productID);
+      const patientObservations = obs.filter(observation => observation.subject != null && observation.subject.reference === "Patient/" + this.productID);
       
       // Créez un tableau pour stocker les observations du patient
       const updatedObservations: Observation[] = [];
@@ -43,7 +53,6 @@ export class PatientDetailsComponent implements OnInit {
           patientObservation.dateObservation = dateObservation;
           updatedObservations.push(patientObservation);
         }
-    
         // Mettez à jour le poids et la taille
         if (unit === "kg") {
           patientObservation.poids = observation.valueQuantity?.value;
@@ -56,8 +65,18 @@ export class PatientDetailsComponent implements OnInit {
         // Recalculer l'IMC si le poids et la taille sont définis
         if (patientObservation.poids && patientObservation.taille) {
           patientObservation.imc = (patientObservation.poids / (patientObservation.taille * patientObservation.taille))*10000;
+          patientObservation.imc = parseFloat(patientObservation.imc.toFixed(3));
         }
+
+
+        patientObservation.idPatient = this.productID;
+        this.copiePatientObservation = { ...patientObservation };
+        
       });
+      let dernierImc: number | undefined = patientObservations.length > 0 
+  ? patientObservations[patientObservations.length - 1].imc 
+  : undefined;
+  dernierImc= this.dernierImc;
     console.log(updatedObservations);
     
       // Mettre à jour le dataSource avec les nouvelles observations
@@ -93,7 +112,22 @@ export class PatientDetailsComponent implements OnInit {
     const birth = new Date(birthDate);
     const ageDifMs = Date.now() - birth.getTime();
     const ageDate = new Date(ageDifMs); // milisecondes depuis 1970
-    return Math.abs(ageDate.getUTCFullYear() - 1970);
+    this.age = Math.abs(ageDate.getUTCFullYear() - 1970);
+    return this.age;
+  }
+
+  openFormulaire() {
+    this.dialog.open(PopUpProgrammeNutriComponent, {
+      width: '90%',
+      height: '70%',
+      data: { message: 'Compte rendu',
+              patient: this.patientData,
+              patientObservation: this.copiePatientObservation,
+              dernierImc: this.dernierImc,
+              age: this.age
+              
+       }
+    });
   }
 
 }

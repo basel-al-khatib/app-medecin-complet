@@ -1,0 +1,117 @@
+<mat-toolbar color="primary">
+    <span>Compte rendu du patient</span>
+  </mat-toolbar>
+  
+  <div class="container">
+    <!-- Profil du patient -->
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>Profil du patient</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p>Nom : {{ (patient.name[0]?.given?.join(' ') || '') }} {{ (patient.name[0]?.family || '')  }}</p>
+        <p>Âge : {{ this.age }}</p>
+        <p>Poids (kg) : {{ patientObservation.poids }}</p>
+        <p>Taille (cm) : {{ patientObservation.taille }}</p>
+      </mat-card-content>
+    </mat-card>
+  
+    <!-- IMC Section -->
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>Indice de Masse Corporelle (IMC)</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p>IMC : {{ patientObservation.imc }}</p>
+      </mat-card-content>
+    </mat-card>
+  
+    <!-- Recommandations du nutritioniste -->
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>Détails du Programme</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <mat-form-field appearance="fill">
+          <mat-label>Référence du Patient</mat-label>
+          <input matInput [(ngModel)]="patientReference" placeholder="Patient/123">
+        </mat-form-field>
+      
+        <mat-form-field appearance="fill">
+          <mat-label>Date et Heure</mat-label>
+          <input matInput [(ngModel)]="dateTime">
+        </mat-form-field>
+      
+        <mat-form-field appearance="fill">
+          <mat-label>Référence du Prescripteur</mat-label>
+          <input matInput [(ngModel)]="ordererReference" placeholder="Practitioner/456">
+        </mat-form-field>
+      
+        <mat-form-field appearance="fill">
+          <mat-label>Préférence Alimentaire</mat-label>
+          <input matInput [(ngModel)]="dietPreference" placeholder="Régime sans gluten">
+        </mat-form-field>
+      
+        <mat-form-field appearance="fill">
+          <mat-label>Type de Régime</mat-label>
+          <input matInput [(ngModel)]="dietType" placeholder="Régime hypocalorique">
+        </mat-form-field>
+      
+        <mat-form-field appearance="fill">
+          <mat-label>Description</mat-label>
+          <textarea matInput [(ngModel)]="dietTypeDescription"></textarea>
+        </mat-form-field>
+      
+        <mat-form-field appearance="fill">
+          <mat-label>Fréquence des Repas</mat-label>
+          <input matInput [(ngModel)]="frequency" placeholder="3 repas par jour">
+        </mat-form-field>
+      
+        <mat-form-field appearance="fill">
+          <mat-label>Durée</mat-label>
+          <input matInput [(ngModel)]="duration" placeholder="Du ... au ...">
+        </mat-form-field>
+      
+        <mat-form-field appearance="fill">
+          <mat-label>Consignes</mat-label>
+          <textarea matInput [(ngModel)]="instructions"></textarea>
+        </mat-form-field>
+      
+        <mat-form-field appearance="fill">
+          <mat-label>Apports Nutritionnels Recommandés</mat-label>
+          <textarea matInput [(ngModel)]="nutrients" placeholder="Protéines, Lipides, Glucides..."></textarea>
+        </mat-form-field>
+      
+        <mat-form-field appearance="fill">
+          <mat-label>Suppléments Recommandés</mat-label>
+          <textarea matInput [(ngModel)]="supplements"></textarea>
+        </mat-form-field>
+      
+        <mat-form-field appearance="fill">
+          <mat-label>Aliments à Éviter</mat-label>
+          <textarea matInput [(ngModel)]="forbiddenFoods"></textarea>
+        </mat-form-field>
+      
+        <button mat-raised-button color="primary" (click)="envoyerProgramme()">Envoyer le Programme</button>
+      </mat-card-content>
+    </mat-card>
+  
+    <button mat-fab extended style="background-color: rgb(19, 135, 250);" (click)="envoyerImc()">
+          
+      envoyer
+    
+    </button>
+  </div>
+  
+  <!-- Styles for the page -->
+  <style>
+    .container {
+      margin: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    table {
+      width: 100%;
+    }
+  </style>

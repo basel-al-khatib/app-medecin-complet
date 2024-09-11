@@ -62,7 +62,7 @@
     <ng-container matColumnDef="programmeNutritionnel">
       <th mat-header-cell *matHeaderCellDef>Programme nutritionnel</th>
       <td mat-cell *matCellDef="let obs; let i = index">
-        <button mat-fab extended style="background-color: rgb(19, 135, 250);">
+        <button mat-fab extended style="background-color: rgb(19, 135, 250);" (click)="openFormulaire()">
           
           <mat-icon>description</mat-icon>
         
