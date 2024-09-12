@@ -54,7 +54,7 @@ export class PatientDetailsComponent implements OnInit {
         const dateObservation = new Date(observation.effectiveDateTime);
     
         // Trouvez ou créez l'objet patientObservation pour cette date
-        var patientObservation = updatedObservations.find(obs => obs.dateObservation.getTime() === dateObservation.getTime());
+        let patientObservation = updatedObservations.find(obs => obs.dateObservation.getTime() == dateObservation.getTime());
         if (!patientObservation) {
           patientObservation = new Observation();
           patientObservation.dateObservation = dateObservation;
@@ -79,7 +79,11 @@ export class PatientDetailsComponent implements OnInit {
 
         patientObservation.idPatient = this.productID;
         this.copiePatientObservation = { ...patientObservation };
-        this.patientObservations = updatedObservations
+        console.log(this.copiePatientObservation);
+        console.log(patientObservation);
+        
+        
+        this.patientObservations = updatedObservations.filter(obs => obs.poids && obs.taille)
       });
     
       
@@ -106,7 +110,6 @@ export class PatientDetailsComponent implements OnInit {
           
           this.patientData = data;
         this.patientDataTable.push(data)
-        console.log(this.patientDataTable);
 
         },
         (error) => {
@@ -131,6 +134,7 @@ export class PatientDetailsComponent implements OnInit {
   }
 
   openFormulaire() {
+    
     this.dialog.open(PopUpProgrammeNutriComponent, {
       width: '90%',
       height: '70%',
@@ -138,13 +142,11 @@ export class PatientDetailsComponent implements OnInit {
               patient: this.patientData,
               patientObservation: this.copiePatientObservation,
               dernierImc: this.dernierImc,
-              age: this.age
-              
+              age: this.age,
        }
     });
   }
   envoyerImc(observation: Observation){
-    console.log(observation);
     
     this.patientService.addObservationImc(observation).subscribe(test => {
       console.log(test);

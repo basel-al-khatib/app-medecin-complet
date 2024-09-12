@@ -41,7 +41,7 @@ export class PopUpProgrammeNutriComponent implements OnInit {
   nutrients: any[] = [];
   supplements: any[] = [];
   forbiddenFoods: string[] = [];
-
+  obs: any;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: { message: string; patient: Patient; 
     dernierImc: number; patientObservation: Observation; age: number},
@@ -52,14 +52,15 @@ export class PopUpProgrammeNutriComponent implements OnInit {
     
   ngOnInit(): void {
     this.patientObservation= this.data.patientObservation;
+    
     this.patient = this.data.patient;
     this.imc = this.data.dernierImc;
     this.age = this.data.age;
     this.id = this.data.patientObservation.idPatient;
     this.patientReference = this.patient.id;
     this.dateTime = this.formatDateToInputValue(new Date());
- 
-    console.log(this.id);
+
+    
 
     this.authService.getCurrentUserId().subscribe(userId => {
       if (userId) {
